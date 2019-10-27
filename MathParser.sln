@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29318.209
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathParser", "MathParser\MathParser.csproj", "{4F50D411-11DC-461B-AA26-6A07D82D6844}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example1", "Example1\Example1.csproj", "{754712B9-164F-4C9B-8E2D-8ADFF295355F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4F50D411-11DC-461B-AA26-6A07D82D6844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F50D411-11DC-461B-AA26-6A07D82D6844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F50D411-11DC-461B-AA26-6A07D82D6844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F50D411-11DC-461B-AA26-6A07D82D6844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{754712B9-164F-4C9B-8E2D-8ADFF295355F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{754712B9-164F-4C9B-8E2D-8ADFF295355F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{754712B9-164F-4C9B-8E2D-8ADFF295355F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{754712B9-164F-4C9B-8E2D-8ADFF295355F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A8F2C486-94E1-44A6-8253-D43A28A6415A}
+	EndGlobalSection
+EndGlobal
