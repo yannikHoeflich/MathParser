@@ -3,34 +3,11 @@
 namespace Gidyyy.MathParser {
     public class MathParser {
 
-        #region Parse to int
         public static int ParseToInt( string input ) {
             int output = 0;
 
             // set brackets
-            for ( int i = 0; i < input.Length; i++ ) {
-                if ( input[i] == '*' || input[i] == '/' ) {
-                    bool setBracket = false;
-                    for ( int j = i; j > 0; j-- ) {
-                        if ( input[j] == '+' || input[j] == '-' ) {
-                            input = input.Substring( 0 , j + 1 ) + "(" + input.Substring( j + 1 , input.Length - j - 1 );
-                            i++;
-                            setBracket = true;
-                            break;
-                        }
-                    }
-                    if ( setBracket )
-                        for ( int j = i; j < input.Length; j++ ) {
-                            if ( input[j] == '+' || input[j] == '-' ) {
-                                input = input.Substring( 0 , j - 1 ) + ")" + input.Substring( j - 1 , input.Length - j + 1 );
-                                setBracket = false;
-                                break;
-                            }
-                        }
-                    if ( setBracket )
-                        input += ")";
-                }
-            }
+            input = SetBrackets( input );
 
             int CurrentNumber = 0;
             char lastSign = '+';
@@ -78,6 +55,8 @@ namespace Gidyyy.MathParser {
                         output *= CurrentNumber;
                     else if ( lastSign == '/' )
                         output /= CurrentNumber;
+                    else if ( lastSign == '^' )
+                        output = (int) Math.Pow( output , CurrentNumber );
 
                     lastSign = '+';
                     CurrentNumber = 0;
@@ -91,6 +70,8 @@ namespace Gidyyy.MathParser {
                         output *= CurrentNumber;
                     else if ( lastSign == '/' )
                         output /= CurrentNumber;
+                    else if ( lastSign == '^' )
+                        output = (int) Math.Pow( output , CurrentNumber );
 
                     lastSign = '-';
                     CurrentNumber = 0;
@@ -104,6 +85,8 @@ namespace Gidyyy.MathParser {
                         output *= CurrentNumber;
                     else if ( lastSign == '/' )
                         output /= CurrentNumber;
+                    else if ( lastSign == '^' )
+                        output = (int) Math.Pow( output , CurrentNumber );
 
                     lastSign = '*';
                     CurrentNumber = 0;
@@ -117,8 +100,25 @@ namespace Gidyyy.MathParser {
                         output *= CurrentNumber;
                     else if ( lastSign == '/' )
                         output /= CurrentNumber;
+                    else if ( lastSign == '^' )
+                        output = (int) Math.Pow( output , CurrentNumber );
 
                     lastSign = '/';
+                    CurrentNumber = 0;
+                } else if ( input[i] == '^' ) {
+
+                    if ( lastSign == '+' )
+                        output += CurrentNumber;
+                    else if ( lastSign == '-' )
+                        output -= CurrentNumber;
+                    else if ( lastSign == '*' )
+                        output *= CurrentNumber;
+                    else if ( lastSign == '/' )
+                        output /= CurrentNumber;
+                    else if ( lastSign == '^' )
+                        output = (int) Math.Pow( output , CurrentNumber );
+
+                    lastSign = '^';
                     CurrentNumber = 0;
                 }
                 // brackets
@@ -148,39 +148,17 @@ namespace Gidyyy.MathParser {
                 output *= CurrentNumber;
             else if ( lastSign == '/' )
                 output /= CurrentNumber;
+            else if ( lastSign == '^' )
+                output = (int) Math.Pow( output , CurrentNumber );
 
             return output;
         }
-        #endregion
 
-        #region parse to float
         public static float ParseToFloat( string input ) {
             float output = 0;
 
             // set brackets
-            for ( int i = 0; i < input.Length; i++ ) {
-                if ( input[i] == '*' || input[i] == '/' ) {
-                    bool setBracket = false;
-                    for ( int j = i; j > 0; j-- ) {
-                        if ( input[j] == '+' || input[j] == '-' ) {
-                            input = input.Substring( 0 , j + 1 ) + "(" + input.Substring( j + 1 , input.Length - j - 1 );
-                            i++;
-                            setBracket = true;
-                            break;
-                        }
-                    }
-                    if ( setBracket )
-                        for ( int j = i; j < input.Length; j++ ) {
-                            if ( input[j] == '+' || input[j] == '-' ) {
-                                input = input.Substring( 0 , j - 1 ) + ")" + input.Substring( j - 1 , input.Length - j + 1 );
-                                setBracket = false;
-                                break;
-                            }
-                        }
-                    if ( setBracket )
-                        input += ")";
-                }
-            }
+            input = SetBrackets( input );
 
             float CurrentNumber = 0;
             char lastSign = '+';
@@ -290,6 +268,8 @@ namespace Gidyyy.MathParser {
                         output *= CurrentNumber;
                     else if ( lastSign == '/' )
                         output /= CurrentNumber;
+                    else if ( lastSign == '^' )
+                        output = (float) Math.Pow( output , CurrentNumber );
 
                     lastSign = '+';
                     CurrentNumber = 0;
@@ -304,6 +284,8 @@ namespace Gidyyy.MathParser {
                         output *= CurrentNumber;
                     else if ( lastSign == '/' )
                         output /= CurrentNumber;
+                    else if ( lastSign == '^' )
+                        output = (float) Math.Pow( output , CurrentNumber );
 
                     lastSign = '-';
                     CurrentNumber = 0f;
@@ -318,6 +300,8 @@ namespace Gidyyy.MathParser {
                         output *= CurrentNumber;
                     else if ( lastSign == '/' )
                         output /= CurrentNumber;
+                    else if ( lastSign == '^' )
+                        output = (float) Math.Pow( output , CurrentNumber );
 
                     lastSign = '*';
                     CurrentNumber = 0;
@@ -332,8 +316,26 @@ namespace Gidyyy.MathParser {
                         output *= CurrentNumber;
                     else if ( lastSign == '/' )
                         output /= CurrentNumber;
+                    else if ( lastSign == '^' )
+                        output = (float) Math.Pow( output , CurrentNumber );
 
                     lastSign = '/';
+                    CurrentNumber = 0;
+                    IsAfterDot = false;
+                } else if ( input[i] == '^' ) {
+
+                    if ( lastSign == '+' )
+                        output += CurrentNumber;
+                    else if ( lastSign == '-' )
+                        output -= CurrentNumber;
+                    else if ( lastSign == '*' )
+                        output *= CurrentNumber;
+                    else if ( lastSign == '/' )
+                        output /= CurrentNumber;
+                    else if ( lastSign == '^' )
+                        output = (float) Math.Pow( output , CurrentNumber );
+
+                    lastSign = '^';
                     CurrentNumber = 0;
                     IsAfterDot = false;
                 }
@@ -370,39 +372,17 @@ namespace Gidyyy.MathParser {
                 output *= CurrentNumber;
             else if ( lastSign == '/' )
                 output /= CurrentNumber;
+            else if ( lastSign == '^' )
+                output = (float) Math.Pow( output , CurrentNumber );
 
             return output;
         }
-        #endregion
 
-        #region parse to double
         public static double ParseToDouble( string input ) {
             double output = 0;
 
             // set brackets
-            for ( int i = 0; i < input.Length; i++ ) {
-                if ( input[i] == '*' || input[i] == '/' ) {
-                    bool setBracket = false;
-                    for ( int j = i; j > 0; j-- ) {
-                        if ( input[j] == '+' || input[j] == '-' ) {
-                            input = input.Substring( 0 , j + 1 ) + "(" + input.Substring( j + 1 , input.Length - j - 1 );
-                            i++;
-                            setBracket = true;
-                            break;
-                        }
-                    }
-                    if ( setBracket )
-                        for ( int j = i; j < input.Length; j++ ) {
-                            if ( input[j] == '+' || input[j] == '-' ) {
-                                input = input.Substring( 0 , j - 1 ) + ")" + input.Substring( j - 1 , input.Length - j + 1 );
-                                setBracket = false;
-                                break;
-                            }
-                        }
-                    if ( setBracket )
-                        input += ")";
-                }
-            }
+            input = SetBrackets( input );
 
             double CurrentNumber = 0;
             char lastSign = '+';
@@ -512,6 +492,8 @@ namespace Gidyyy.MathParser {
                         output *= CurrentNumber;
                     else if ( lastSign == '/' )
                         output /= CurrentNumber;
+                    else if ( lastSign == '^' )
+                        output = Math.Pow( output , CurrentNumber );
 
                     lastSign = '+';
                     CurrentNumber = 0;
@@ -526,6 +508,8 @@ namespace Gidyyy.MathParser {
                         output *= CurrentNumber;
                     else if ( lastSign == '/' )
                         output /= CurrentNumber;
+                    else if ( lastSign == '^' )
+                        output = Math.Pow( output , CurrentNumber );
 
                     lastSign = '-';
                     CurrentNumber = 0f;
@@ -540,6 +524,8 @@ namespace Gidyyy.MathParser {
                         output *= CurrentNumber;
                     else if ( lastSign == '/' )
                         output /= CurrentNumber;
+                    else if ( lastSign == '^' )
+                        output = Math.Pow( output , CurrentNumber );
 
                     lastSign = '*';
                     CurrentNumber = 0;
@@ -554,8 +540,26 @@ namespace Gidyyy.MathParser {
                         output *= CurrentNumber;
                     else if ( lastSign == '/' )
                         output /= CurrentNumber;
+                    else if ( lastSign == '^' )
+                        output = Math.Pow( output , CurrentNumber );
 
                     lastSign = '/';
+                    CurrentNumber = 0;
+                    IsAfterDot = false;
+                } else if ( input[i] == '^' ) {
+
+                    if ( lastSign == '+' )
+                        output += CurrentNumber;
+                    else if ( lastSign == '-' )
+                        output -= CurrentNumber;
+                    else if ( lastSign == '*' )
+                        output *= CurrentNumber;
+                    else if ( lastSign == '/' )
+                        output /= CurrentNumber;
+                    else if ( lastSign == '^' )
+                        output = Math.Pow( output , CurrentNumber );
+
+                    lastSign = '^';
                     CurrentNumber = 0;
                     IsAfterDot = false;
                 }
@@ -592,9 +596,62 @@ namespace Gidyyy.MathParser {
                 output *= CurrentNumber;
             else if ( lastSign == '/' )
                 output /= CurrentNumber;
+            else if ( lastSign == '^' )
+                output = Math.Pow( output , CurrentNumber );
 
             return output;
         }
-        #endregion
+
+        public static string SetBrackets( string input ) {
+
+            for ( int i = 0; i < input.Length; i++ ) {
+                if ( input[i] == '*' || input[i] == '/' ) {
+                    bool setBracket = false;
+                    for ( int j = i; j > 0; j-- ) {
+                        if ( input[j] == '+' || input[j] == '-' ) {
+                            input = input.Substring( 0 , j + 1 ) + "(" + input.Substring( j + 1 , input.Length - j - 1 );
+                            i++;
+                            setBracket = true;
+                            break;
+                        }
+                    }
+                    if ( setBracket )
+                        for ( int j = i; j < input.Length; j++ ) {
+                            if ( input[j] == '+' || input[j] == '-' ) {
+                                input = input.Substring( 0 , j - 1 ) + ")" + input.Substring( j - 1 , input.Length - j + 1 );
+                                setBracket = false;
+                                break;
+                            }
+                        }
+                    if ( setBracket )
+                        input += ")";
+                }
+            }
+
+            for ( int i = 0; i < input.Length; i++ ) {
+                if ( input[i] == '^' ) {
+                    bool setBracket = false;
+                    for ( int j = i; j > 0; j-- ) {
+                        if ( input[j] == '+' || input[j] == '-' || input[j] == '*' || input[j] == '/' ) {
+                            input = input.Substring( 0 , j + 1 ) + "(" + input.Substring( j + 1 , input.Length - j - 1 );
+                            i++;
+                            setBracket = true;
+                            break;
+                        }
+                    }
+                    if ( setBracket )
+                        for ( int j = i; j < input.Length; j++ ) {
+                            if ( input[j] == '+' || input[j] == '-' || input[j] == '*' || input[j] == '/' ) {
+                                input = input.Substring( 0 , j - 1 ) + ")" + input.Substring( j - 1 , input.Length - j + 1 );
+                                setBracket = false;
+                                break;
+                            }
+                        }
+                    if ( setBracket )
+                        input += ")";
+                }
+            }
+            return input;
+        }
     }
 }

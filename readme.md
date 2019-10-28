@@ -14,6 +14,12 @@ using Gidyyy.MathParser;
 
 ## latest changes
 ```
+18.10.2019:
+    added:
+        signs:  
+            ^: pow
+        methods:
+            SetBrackets
 27.10.2019:
     first version
 ```
@@ -24,6 +30,7 @@ using Gidyyy.MathParser;
 -: subtract
 *: multiply
 /: divide
+^: pow
 ```
 
 ### Supported mathematical rules
@@ -38,4 +45,5 @@ static int ParseToInt(string)
 static float ParseToFloat(string)
 static double ParseToDouble(string)
 
+static string SetBrackets(string)
 ```
